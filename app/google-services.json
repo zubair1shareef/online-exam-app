@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "324534803124",
+    "firebase_url": "https://quiz-app-8e162.firebaseio.com",
+    "project_id": "quiz-app-8e162",
+    "storage_bucket": "quiz-app-8e162.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324534803124:android:8f824dba95c96e4b5995e1",
+        "android_client_info": {
+          "package_name": "com.example.quizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324534803124-45r0bcsbtpc4obvfq8b5kg9je73149d3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quizapp",
+            "certificate_hash": "8ec78e60696e28d4f271213ec0df7b665d67b986"
+          }
+        },
+        {
+          "client_id": "324534803124-t749q0namcd43ci1dplmlav5n0u6bbg7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjNo7_EQhbPLRcF0qT23Fo3maiVyGQRac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324534803124-t749q0namcd43ci1dplmlav5n0u6bbg7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324534803124:android:3a6929e0e147b7db5995e1",
+        "android_client_info": {
+          "package_name": "com.example.quizappcomplete"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324534803124-m0nqdmk2u9a07bk2jbb0ks5i7bcispk1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quizappcomplete",
+            "certificate_hash": "8ec78e60696e28d4f271213ec0df7b665d67b986"
+          }
+        },
+        {
+          "client_id": "324534803124-t749q0namcd43ci1dplmlav5n0u6bbg7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjNo7_EQhbPLRcF0qT23Fo3maiVyGQRac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324534803124-t749q0namcd43ci1dplmlav5n0u6bbg7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
