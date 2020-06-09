@@ -1,4 +1,4 @@
-package com.example.quizappcomplete;
+package com.example.quizappcomplete.Model;
 
 public class Setquestions {
     String question,option1,option2,option3,option4,answer;

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Quiz app complete</string>
+    <string name="login">Login</string>
+    <string name="no_account">Do not have an Account ?</string>
+    <string name="signup">Signup</string>
+    <string name="have_account">Already have an Account ?</string>
+    <string name="role">Select Role :</string>
+    <string name="role_student">Student</string>
+    <string name="role_prof">Professor</string>
 </resources>
