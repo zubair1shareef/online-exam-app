@@ -7,4 +7,6 @@
     <string name="role">Select Role :</string>
     <string name="role_student">Student</string>
     <string name="role_prof">Professor</string>
+    <string name="Save">Save</string>
+    <string name="save">Save</string>
 </resources>
