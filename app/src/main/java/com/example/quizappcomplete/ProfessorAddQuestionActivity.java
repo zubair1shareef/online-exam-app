@@ -7,17 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.quizappcomplete.Model.uploadquiz;
+import com.example.quizappcomplete.Model.Question;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Addquestions extends AppCompatActivity {
+public class ProfessorAddQuestionActivity extends AppCompatActivity {
     EditText questiono,newquestion,opt1,opt2,opt3,opt4,ans;
     Button create;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addquestions);
+        setContentView(R.layout.activity_professor_add_question);
         questiono=(EditText) findViewById(R.id.editText7);
         newquestion=(EditText) findViewById(R.id.editText);
         opt1=(EditText) findViewById(R.id.editText2);
@@ -37,7 +37,7 @@ public class Addquestions extends AppCompatActivity {
         String option3=opt3.getText().toString();
         String option4=opt4.getText().toString();
         String answer=ans.getText().toString();
-        uploadquiz update=new uploadquiz(questionno,question,option1,option2,option3,option4,answer);
+        Question update=new Question (questionno,question,option1,option2,option3,option4,answer);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference myRef = database.getReference("Question");

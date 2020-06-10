@@ -9,4 +9,8 @@
     <string name="role_prof">Professor</string>
     <string name="Save">Save</string>
     <string name="save">Save</string>
+    <string name="Open">Open Navigation Drawer</string>
+    <string name="Close">Close Navigation Drawer</string>
+    <string name="welcome">Welcome</string>
+    <string name="save_quiz">Save Quiz Information</string>
 </resources>

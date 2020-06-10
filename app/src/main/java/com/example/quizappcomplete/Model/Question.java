@@ -1,9 +1,9 @@
 package com.example.quizappcomplete.Model;
 
-public class uploadquiz {
+public class Question {
     String questionno,question,option1,option2,option3,option4,answer;
 
-    public uploadquiz(String questionno, String question, String option1, String option2, String option3, String option4, String answer) {
+    public Question(String questionno, String question, String option1, String option2, String option3, String option4, String answer) {
         this.questionno = questionno;
         this.question = question;
         this.option1 = option1;

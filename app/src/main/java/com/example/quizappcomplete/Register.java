@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 public class Register extends AppCompatActivity {
 
@@ -46,6 +48,7 @@ public class Register extends AppCompatActivity {
     String mName, mEmail, mPassword, mInstituteCode;
     ProgressDialog mDialog;
 
+    public static String MY_PREFS_NAME= "CurrentUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,12 +206,19 @@ public class Register extends AppCompatActivity {
                                                     Log.d ("SignUp","Display name updated");
                                                     User u = new User(mAuth.getCurrentUser ().getDisplayName (), user.getEmail (),mInstituteCode,null,null,"Professor");
                                                     mReference.child (mAuth.getUid ()).setValue (u);
+
+                                                    //storing in Shared Preferences
+                                                    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                                    Gson gson = new Gson();
+                                                    String json = gson.toJson(u);
+                                                    editor.putString("user", json);
+                                                    editor.commit();
+
                                                     mDialog.dismiss ();
                                                     Toast.makeText (Register.this, "Data Stored", Toast.LENGTH_SHORT).show ();
-                                                    //Intent i = new Intent (Register.this, StudentProfileCompleteActivity.class);
-                                                    //Update above intent with the Professor Dashboard.
-                                                    //finish ();
-                                                    //startActivity (i);
+                                                    Intent i = new Intent (Register.this, ProfessorDashboardActivity.class);
+                                                    finish ();
+                                                    startActivity (i);
                                                 }
                                                 else
                                                     Log.d ("SignUp","Display name not updated");

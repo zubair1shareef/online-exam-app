@@ -9,31 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentProfileCompleteActivity"></activity>
-        <activity android:name=".Quiz" />
-        <activity
-            android:name=".Register"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Viewquiz"></activity>
-        <activity android:name=".Newquiz" />
-        <activity android:name=".Addquestions" />
-        <activity android:name=".Quiz" />
-        <activity
-            android:name=".Register"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".WelcomeActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ProfessorDashboardActivity" />
+        <activity android:name=".StudentProfileCompleteActivity" />
+        <activity android:name=".ProfessorNewQuizActivity" />
+        <activity android:name=".ProfessorAddQuestionActivity" />
+        <activity android:name=".Quiz" />
+        <activity
+            android:name=".Register"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <meta-data

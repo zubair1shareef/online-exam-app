@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfessorNewQuizActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/etQuizTitle"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Quiz Title"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/etQuizDate"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:editable="false"
+            android:hint="Enter Quiz Date"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/etQuizTime"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Quiz Time"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary"
+            android:editable="false"/>
+
+        <EditText
+            android:id="@+id/etQuizDuration"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Quiz Duration"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/etBranch_NewQuiz"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Branch"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/etSemester_NewQuiz"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Semester"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/etMarksPerQuestion"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Marks per Question"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+        <EditText
+            android:id="@+id/etTotalMarks"
+            style="@style/BodyMediumReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textfield"
+            android:hint="Enter Total Marks"
+            android:padding="10dp"
+            android:textColorHint="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveQuiz"
+        style="@style/BodyLargeBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bottom"
+        android:text="@string/save_quiz"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
