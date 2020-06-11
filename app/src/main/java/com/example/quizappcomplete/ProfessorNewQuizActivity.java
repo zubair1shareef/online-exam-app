@@ -7,6 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.MenuItem;
@@ -17,7 +19,13 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.quizappcomplete.Model.QuizInfo;
+import com.example.quizappcomplete.Model.User;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +36,12 @@ public class ProfessorNewQuizActivity extends AppCompatActivity {
     EditText etTitle, etDate, etTime, etDuration, etBranch, etSemester, etMarksperQuestion, etTotalMarks;
     Button btnSaveQuiz;
 
-    String mTitle, mDate, mTime, mDuartion, mBranch, mSemester, mMarksperQuestion, mTotalMarks;
+    String mTitle, mDate, mTime, mDuartion, mBranch, mSemester, mMarksperQuestion, mTotalMarks, mInstituteCode, mCreatedBy, mCreatedByUid;
+
+    public static String MY_PREFS_NAME= "CurrentUser";
+    private FirebaseDatabase mDatabase;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,15 @@ public class ProfessorNewQuizActivity extends AppCompatActivity {
         etSemester = findViewById (R.id.etSemester_NewQuiz);
         etMarksperQuestion = findViewById (R.id.etMarksPerQuestion);
         etTotalMarks = findViewById (R.id.etTotalMarks);
+        btnSaveQuiz = findViewById (R.id.btnSaveQuiz);
+
+        mAuth = FirebaseAuth.getInstance ();
+        mDatabase = FirebaseDatabase.getInstance ();
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = prefs.getString("user", "");
+        final User user = gson.fromJson(json, User.class);
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -88,6 +110,38 @@ public class ProfessorNewQuizActivity extends AppCompatActivity {
                 new TimePickerDialog(ProfessorNewQuizActivity.this,time, myCalendar.get(Calendar.HOUR_OF_DAY),
                         myCalendar.get(Calendar.MINUTE),
                         DateFormat.is24HourFormat(ProfessorNewQuizActivity.this)).show ();
+            }
+        });
+
+        btnSaveQuiz.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                mTitle = etTitle.getText ().toString ();
+                mDate = etDate.getText ().toString ();
+                mTime = etTime.getText ().toString ();
+                mDuartion = etDuration.getText ().toString ();
+                mBranch = etBranch.getText ().toString ();
+                mSemester = etSemester.getText ().toString ();
+                mMarksperQuestion = etMarksperQuestion.getText ().toString ();
+                mTotalMarks = etTotalMarks.getText ().toString ();
+                mInstituteCode = user.getInstituteCode ();
+                mCreatedBy = user.getName ();
+                mCreatedByUid = mAuth.getUid ();
+
+                QuizInfo quizInfo = new QuizInfo (mTitle,mDate,mTime,mDuartion,mBranch,mSemester,mMarksperQuestion,mTotalMarks,mInstituteCode,mCreatedBy,mCreatedByUid);
+
+                mReference = mDatabase.getReference ("Quiz");
+                mReference = mReference.push ();
+                mReference.setValue (quizInfo);
+
+                String quizId = mReference.getKey ();
+
+                Intent intent = new Intent (ProfessorNewQuizActivity.this, ProfessorViewQuestionsActivity.class);
+                intent.putExtra ("quizId",quizId);
+                finish ();
+                startActivity (intent);
+
+
             }
         });
 

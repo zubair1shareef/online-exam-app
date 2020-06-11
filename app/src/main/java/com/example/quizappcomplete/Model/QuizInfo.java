@@ -2,9 +2,9 @@ package com.example.quizappcomplete.Model;
 
 public class QuizInfo {
 
-    String title, date, time, duration, branch, semester, marksperquestion, totalMarks;
+    String title, date, time, duration, branch, semester, marksperquestion, totalMarks, instititeCode, createdBy, createdByUid;
 
-    public QuizInfo(String title, String date, String time, String duration, String branch, String semester, String marksperquestion, String totalMarks) {
+    public QuizInfo(String title, String date, String time, String duration, String branch, String semester, String marksperquestion, String totalMarks, String instititeCode, String createdBy, String createdByUid) {
         this.title = title;
         this.date = date;
         this.time = time;
@@ -13,6 +13,9 @@ public class QuizInfo {
         this.semester = semester;
         this.marksperquestion = marksperquestion;
         this.totalMarks = totalMarks;
+        this.instititeCode = instititeCode;
+        this.createdBy = createdBy;
+        this.createdByUid = createdByUid;
     }
 
     public QuizInfo(){}
@@ -79,6 +82,30 @@ public class QuizInfo {
 
     public void setTotalMarks(String totalMarks) {
         this.totalMarks = totalMarks;
+    }
+
+    public String getInstititeCode() {
+        return instititeCode;
+    }
+
+    public void setInstititeCode(String instititeCode) {
+        this.instititeCode = instititeCode;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedByUid() {
+        return createdByUid;
+    }
+
+    public void setCreatedByUid(String createdByUid) {
+        this.createdByUid = createdByUid;
     }
 }
 
