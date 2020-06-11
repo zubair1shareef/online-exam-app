@@ -22,14 +22,14 @@ public class ProfessorAddQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_add_question);
 
-        etQuestionNo= findViewById(R.id.editText7);
-        etNewQuestion= findViewById(R.id.editText);
-        etOp1= findViewById(R.id.editText2);
-        etOp2= findViewById(R.id.editText3);
-        etOp3= findViewById(R.id.editText4);
-        etop4= findViewById(R.id.editText5);
-        etAnswer= findViewById(R.id.editText6);
-        btnCreateQuestion= findViewById(R.id.button);
+        etQuestionNo= findViewById(R.id.etQuestionNumber);
+        etNewQuestion= findViewById(R.id.etQuestion);
+        etOp1= findViewById(R.id.etOption1);
+        etOp2= findViewById(R.id.etOption2);
+        etOp3= findViewById(R.id.etOption3);
+        etop4= findViewById(R.id.etOption4);
+        etAnswer= findViewById(R.id.etAnswer);
+        btnCreateQuestion= findViewById(R.id.btnCreateQuestion);
 
         Intent intent = getIntent ();
         quizId = intent.getStringExtra ("quizId");
