@@ -3,6 +3,7 @@ package com.example.quizappcomplete;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Quiz extends AppCompatActivity {
     Button button1,button2,button3,button4;
     TextView textView;
-    int wrong=0,correct=0,max=0,maxquestions=0;
+    int wrong=0,correct=0,max=5,maxquestions=0;
     DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,13 @@ public class Quiz extends AppCompatActivity {
         update();
     }
     public void update() {
-        if(maxquestions>9)
+        if(maxquestions==max)
         {
+            Intent myIntent = new Intent(Quiz.this,Results.class);
+           myIntent.putExtra("total",String.valueOf(max));
+            myIntent.putExtra("correct",String.valueOf(correct));
+            myIntent.putExtra("incorrect",String.valueOf(wrong));
+            startActivity(myIntent);
 
         }
         else
@@ -245,4 +251,12 @@ public class Quiz extends AppCompatActivity {
         }, 1000);
         //chnage tho color to default
     }
+   /* public void Result() {
+
+        Intent myIntent = new Intent(MainActivity.this,Results.class);
+        myIntent.putExtra("total",String.valueOf(max));
+        myIntent.putExtra("correct",String.valueOf(correct));
+        myIntent.putExtra("incorrect",String.valueOf(wrong));
+        startActivity(myIntent);
+    }*/
 }
