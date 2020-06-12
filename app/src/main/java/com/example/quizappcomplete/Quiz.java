@@ -71,7 +71,7 @@ public class Quiz extends AppCompatActivity {
                                     @Override
                                     public void run() {
 
-                                        button1.setBackgroundColor(Color.parseColor("#03dac5"));//colour change
+                                        button1.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -112,7 +112,7 @@ public class Quiz extends AppCompatActivity {
                                     @Override
                                     public void run() {
 
-                                        button2.setBackgroundColor(Color.parseColor("#03dac5"));//colour change
+                                        button2.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -155,7 +155,7 @@ public class Quiz extends AppCompatActivity {
                                     @Override
                                     public void run() {
 
-                                        button3.setBackgroundColor(Color.parseColor("#03dac5"));//colour change
+                                        button3.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -196,7 +196,7 @@ public class Quiz extends AppCompatActivity {
                                     @Override
                                     public void run() {
 
-                                        button4.setBackgroundColor(Color.parseColor("#03dac5"));//colour change
+                                        button4.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -242,21 +242,14 @@ public class Quiz extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                button1.setBackgroundColor(Color.parseColor("#03dac5"));
-                button2.setBackgroundColor(Color.parseColor("#03dac5"));
-                button3.setBackgroundColor(Color.parseColor("#03dac5"));
-                button4.setBackgroundColor(Color.parseColor("#03dac5"));
+                button1.setBackgroundColor(Color.parseColor("#E3D3EA"));
+                button2.setBackgroundColor(Color.parseColor("#E3D3EA"));
+                button3.setBackgroundColor(Color.parseColor("#E3D3EA"));
+                button4.setBackgroundColor(Color.parseColor("#E3D3EA"));
 
             }
         }, 1000);
         //chnage tho color to default
     }
-   /* public void Result() {
 
-        Intent myIntent = new Intent(MainActivity.this,Results.class);
-        myIntent.putExtra("total",String.valueOf(max));
-        myIntent.putExtra("correct",String.valueOf(correct));
-        myIntent.putExtra("incorrect",String.valueOf(wrong));
-        startActivity(myIntent);
-    }*/
 }
