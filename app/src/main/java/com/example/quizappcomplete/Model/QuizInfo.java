@@ -1,10 +1,12 @@
 package com.example.quizappcomplete.Model;
 
-public class QuizInfo {
+import java.io.Serializable;
 
-    String title, date, time, duration, branch, semester, marksperquestion, totalMarks, instititeCode, createdBy, createdByUid;
+public class QuizInfo implements Serializable {
 
-    public QuizInfo(String title, String date, String time, String duration, String branch, String semester, String marksperquestion, String totalMarks, String instititeCode, String createdBy, String createdByUid) {
+    String title, date, time, duration, branch, semester, marksperquestion, totalMarks, instituteCode, createdBy, createdByUid;
+
+    public QuizInfo(String title, String date, String time, String duration, String branch, String semester, String marksperquestion, String totalMarks, String instituteCode, String createdBy, String createdByUid) {
         this.title = title;
         this.date = date;
         this.time = time;
@@ -13,7 +15,7 @@ public class QuizInfo {
         this.semester = semester;
         this.marksperquestion = marksperquestion;
         this.totalMarks = totalMarks;
-        this.instititeCode = instititeCode;
+        this.instituteCode = instituteCode;
         this.createdBy = createdBy;
         this.createdByUid = createdByUid;
     }
@@ -84,12 +86,12 @@ public class QuizInfo {
         this.totalMarks = totalMarks;
     }
 
-    public String getInstititeCode() {
-        return instititeCode;
+    public String getInstituteCode() {
+        return instituteCode;
     }
 
-    public void setInstititeCode(String instititeCode) {
-        this.instititeCode = instititeCode;
+    public void setInstituteCode(String instituteCode) {
+        this.instituteCode = instituteCode;
     }
 
     public String getCreatedBy() {

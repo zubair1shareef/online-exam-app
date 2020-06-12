@@ -44,8 +44,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-
-
         Gson gson = new Gson();
         String json = prefs.getString("user", "");
         User user = gson.fromJson(json, User.class);
@@ -60,6 +58,9 @@ public class WelcomeActivity extends AppCompatActivity {
             }
             else if(user.getRole ().equals ("Student"))
             {
+                Intent intent = new Intent (WelcomeActivity.this, StudentDashboardActivity.class);
+                finish ();
+                startActivity (intent);
 
             }
             else if(user.getRole ().equals ("Admin"))

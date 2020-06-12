@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                                     if(user.getRole ().equals ("Professor"))
                                         intent = new Intent (MainActivity.this, ProfessorDashboardActivity.class);
                                     else if(user.getRole ().equals ("Student"))
-                                        intent = new Intent (MainActivity.this, Quiz.class);
+                                        intent = new Intent (MainActivity.this, StudentDashboardActivity.class);
 
                                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     Gson gson = new Gson();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                             });
                         } else {
                             Toast.makeText(MainActivity.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_SHORT).show();
                             mDialog.dismiss ();
                         }
 

@@ -63,9 +63,9 @@ public class StudentProfileCompleteActivity extends AppCompatActivity {
                 editor.commit();
 
                 mDialog.dismiss ();
-                Toast.makeText (StudentProfileCompleteActivity.this, "Data Stored", Toast.LENGTH_SHORT).show ();
-
-
+                Intent intent = new Intent (StudentProfileCompleteActivity.this, StudentDashboardActivity.class);
+                finish ();
+                startActivity (intent);
             }
         });
 
