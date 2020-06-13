@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizappcomplete.Model.Setquestions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 public class Quiz extends AppCompatActivity {
     Button button1,button2,button3,button4;
     TextView textView;
-    int wrong=0,correct=0,max=5,maxquestions=0;
+    int wrong=0,correct=0,max=5,maxquestions=1;
     DatabaseReference reference;
     String time ,quizid;
+    int count;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,22 +43,20 @@ public class Quiz extends AppCompatActivity {
         textView=(TextView) findViewById(R.id.textView);
         Intent i = getIntent();
         quizid = i.getStringExtra("quizid");
-        Toast.makeText(getApplicationContext(),quizid,Toast.LENGTH_SHORT).show();
+
+
 
         update();
     }
     public void update() {
+
         if(maxquestions==max)
         {
-            Intent myIntent = new Intent(Quiz.this,Results.class);
-           myIntent.putExtra("total",String.valueOf(max));
-            myIntent.putExtra("correct",String.valueOf(correct));
-            myIntent.putExtra("incorrect",String.valueOf(wrong));
-            startActivity(myIntent);
+           Resultq();
 
         }
-        else
-        {  maxquestions++;
+        else if(maxquestions>0)
+        {  //maxquestions++;
             reference= FirebaseDatabase.getInstance().getReference().child("Question").child(quizid).child(String.valueOf(maxquestions));
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -241,6 +245,7 @@ public class Quiz extends AppCompatActivity {
         }
 
 
+
     }
 
     public void colorchangeback() {
@@ -255,6 +260,29 @@ public class Quiz extends AppCompatActivity {
             }
         }, 1000);
         //chnage tho color to default
+    }
+    public void back(View v)
+    {
+        maxquestions=maxquestions-1;
+        update();
+    }
+    public  void next(View v)
+    {
+        maxquestions++;
+        update();
+    }
+    public void submit(View v)
+    {
+        Resultq();
+    }
+    public void Resultq()
+    {
+        Intent myIntent = new Intent(Quiz.this,Results.class);
+        myIntent.putExtra("total",String.valueOf(max));
+        myIntent.putExtra("correct",String.valueOf(correct));
+        myIntent.putExtra("incorrect",String.valueOf(wrong));
+        startActivity(myIntent);
+
     }
 
 }
