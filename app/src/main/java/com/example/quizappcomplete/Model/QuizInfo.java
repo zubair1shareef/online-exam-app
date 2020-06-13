@@ -109,5 +109,6 @@ public class QuizInfo implements Serializable {
     public void setCreatedByUid(String createdByUid) {
         this.createdByUid = createdByUid;
     }
+
 }
 

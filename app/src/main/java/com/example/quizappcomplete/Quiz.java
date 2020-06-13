@@ -24,6 +24,7 @@ public class Quiz extends AppCompatActivity {
     TextView textView;
     int wrong=0,correct=0,max=5,maxquestions=0;
     DatabaseReference reference;
+    String time ,quizid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,10 @@ public class Quiz extends AppCompatActivity {
         button3=(Button) findViewById(R.id.button3);
         button4=(Button) findViewById(R.id.button4);
         textView=(TextView) findViewById(R.id.textView);
+        Intent i = getIntent();
+        quizid = i.getStringExtra("quizid");
+        Toast.makeText(getApplicationContext(),quizid,Toast.LENGTH_SHORT).show();
+
         update();
     }
     public void update() {
@@ -48,7 +53,7 @@ public class Quiz extends AppCompatActivity {
         }
         else
         {  maxquestions++;
-            reference= FirebaseDatabase.getInstance().getReference().child("Question").child(String.valueOf(maxquestions));
+            reference= FirebaseDatabase.getInstance().getReference().child("Question").child(quizid).child(String.valueOf(maxquestions));
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

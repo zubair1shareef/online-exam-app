@@ -6,4 +6,211 @@
     android:layout_height="match_parent"
     tools:context=".StudentQuizSelectedActivity">
 
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="39dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintEnd_toStartOf="@+id/Time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Time"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="47dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/Quiztitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Marksperquestion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/Timeallowed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView23"
+        app:layout_constraintTop_toBottomOf="@+id/Totalmarks" />
+
+    <TextView
+        android:id="@+id/Totalmarks"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/Marksperquestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/Semister" />
+
+    <TextView
+        android:id="@+id/Timeallowed"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="286dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/Marksperquestion" />
+
+    <TextView
+        android:id="@+id/createby"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/Branch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/Quiztitle" />
+
+    <TextView
+        android:id="@+id/Semister"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/Totalmarks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/Branch" />
+
+    <TextView
+        android:id="@+id/Branch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/Semister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/createby" />
+
+    <TextView
+        android:id="@+id/Quiztitle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/createby"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/Time" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="4dp"
+        android:text="Title"
+        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintEnd_toStartOf="@+id/Quiztitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Date" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="3dp"
+        android:text="Createdby"
+        app:layout_constraintBottom_toTopOf="@+id/textView20"
+        app:layout_constraintEnd_toStartOf="@+id/createby"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="7dp"
+        android:text="Branch"
+        app:layout_constraintBottom_toTopOf="@+id/textView21"
+        app:layout_constraintEnd_toStartOf="@+id/Branch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:text="Semister"
+        app:layout_constraintBottom_toTopOf="@+id/textView22"
+        app:layout_constraintEnd_toStartOf="@+id/Semister"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="1dp"
+        android:text="totalmarks"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
+        app:layout_constraintEnd_toStartOf="@+id/Totalmarks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:text="marksperqestion"
+        app:layout_constraintBottom_toTopOf="@+id/textView24"
+        app:layout_constraintEnd_toStartOf="@+id/Marksperquestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="78dp"
+        android:text="time alloted"
+        app:layout_constraintBottom_toTopOf="@+id/Proced"
+        app:layout_constraintEnd_toStartOf="@+id/Timeallowed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+    <Button
+        android:id="@+id/Proced"
+        android:layout_width="181dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="161dp"
+        android:background="@drawable/btn_bottom"
+        android:onClick="startquiz"
+        android:text="Start quiz"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
