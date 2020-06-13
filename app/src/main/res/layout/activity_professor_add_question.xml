@@ -25,7 +25,8 @@
             android:background="@drawable/textfield"
             android:hint="Enter Question Number"
             android:padding="10dp"
-            android:textColorHint="@color/colorPrimary" />
+            android:textColorHint="@color/colorPrimary"
+            android:inputType="number"/>
 
         <EditText
             android:id="@+id/etQuestion"

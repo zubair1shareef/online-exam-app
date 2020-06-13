@@ -42,7 +42,6 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefs.getString("user", "");

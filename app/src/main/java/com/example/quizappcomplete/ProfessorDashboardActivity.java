@@ -106,7 +106,7 @@ public class ProfessorDashboardActivity extends AppCompatActivity {
 
         mRecyclerView = findViewById (R.id.prof_quiz_list_recycler);
         mRecyclerView.setLayoutManager (new LinearLayoutManager (this));
-        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, ProfessorNewQuizActivity.class);
+        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, ProfessorViewQuestionsActivity.class);
         mRecyclerView.setAdapter (mAdapter);
 
         mReference = mDatabase.getReference ("Quiz");
