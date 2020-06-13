@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentDashboardActivity"></activity>
+        <activity android:name=".StudentQuizSelectedActivity"></activity>
+        <activity android:name=".StudentDashboardActivity" />
         <activity android:name=".Model.Adminaddinst" />
         <activity android:name=".Results" />
         <activity android:name=".ProfessorViewQuestionsActivity" />

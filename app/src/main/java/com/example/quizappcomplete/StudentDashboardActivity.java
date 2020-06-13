@@ -104,7 +104,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
         mRecyclerView = findViewById (R.id.student_quiz_list_recycler);
         mRecyclerView.setLayoutManager (new LinearLayoutManager (this));
-        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, ProfessorNewQuizActivity.class);
+        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, StudentQuizSelectedActivity.class);
         mRecyclerView.setAdapter (mAdapter);
 
         mReference = mDatabase.getReference ("Quiz");
