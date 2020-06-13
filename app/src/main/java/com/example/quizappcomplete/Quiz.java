@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizappcomplete.Model.Result;
 import com.example.quizappcomplete.Model.Setquestions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Quiz extends AppCompatActivity {
     Button button1,button2,button3,button4;
     TextView textView;
+    private FirebaseAuth mAuth;
     int wrong=0,correct=0,max=5,maxquestions=1;
     DatabaseReference reference;
     String time ,quizid;
@@ -73,14 +76,14 @@ public class Quiz extends AppCompatActivity {
                             if(button1.getText().toString().equals(question.getAnswer()))
                             {
                                 Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
-                                button1.setBackgroundColor(Color.GREEN);
+                               // button1.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
 
-                                        button1.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
+                                        //button1.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -88,20 +91,20 @@ public class Quiz extends AppCompatActivity {
                             else
                             {
                                 wrong++;
-                                button1.setBackgroundColor(Color.RED);//colour cahnge
+                               // button1.setBackgroundColor(Color.RED);//colour cahnge
                                 if(button2.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button2.setBackgroundColor(Color.GREEN);
+                                   // button2.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button3.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button3.setBackgroundColor(Color.GREEN);
+                                   // button3.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button4.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button4.setBackgroundColor(Color.GREEN);
+                                   // button4.setBackgroundColor(Color.GREEN);
                                 }
-                                colorchangeback();
+                              //  colorchangeback();
                                 update();
                             }
 
@@ -114,14 +117,14 @@ public class Quiz extends AppCompatActivity {
                             if(button2.getText().toString().equals(question.getAnswer()))
                             {
                                 Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
-                                button2.setBackgroundColor(Color.GREEN);
+                               // button2.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
 
-                                        button2.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
+                                       // button2.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -129,20 +132,20 @@ public class Quiz extends AppCompatActivity {
                             else
                             {
                                 wrong++;
-                                button2.setBackgroundColor(Color.RED);//colour cahnge
+                               // button2.setBackgroundColor(Color.RED);//colour cahnge
                                 if(button1.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button1.setBackgroundColor(Color.GREEN);
+                                   // button1.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button3.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button3.setBackgroundColor(Color.GREEN);
+                                    //button3.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button4.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button4.setBackgroundColor(Color.GREEN);
+                                    //button4.setBackgroundColor(Color.GREEN);
                                 }
-                                colorchangeback();
+                                //colorchangeback();
                                 update();
                             }
 
@@ -157,14 +160,14 @@ public class Quiz extends AppCompatActivity {
                             if(button3.getText().toString().equals(question.getAnswer()))
                             {
                                 Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
-                                button3.setBackgroundColor(Color.GREEN);
+                               // button3.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
 
-                                        button3.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
+                                     //   button3.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -172,20 +175,20 @@ public class Quiz extends AppCompatActivity {
                             else
                             {
                                 wrong++;
-                                button3.setBackgroundColor(Color.RED);//colour cahnge
+                               // button3.setBackgroundColor(Color.RED);//colour cahnge
                                 if(button1.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button1.setBackgroundColor(Color.GREEN);
+                                   // button1.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button2.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button2.setBackgroundColor(Color.GREEN);
+                                    //button2.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button4.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button4.setBackgroundColor(Color.GREEN);
+                                   // button4.setBackgroundColor(Color.GREEN);
                                 }
-                                colorchangeback();
+                               // colorchangeback();
                                 update();
                             }
 
@@ -198,14 +201,14 @@ public class Quiz extends AppCompatActivity {
                             if(button4.getText().toString().equals(question.getAnswer()))
                             {
                                 Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
-                                button4.setBackgroundColor(Color.GREEN);
+                               // button4.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
 
-                                        button4.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
+                                       // button4.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
                                         update();
                                     }
                                 },1000);
@@ -213,20 +216,20 @@ public class Quiz extends AppCompatActivity {
                             else
                             {
                                 wrong++;
-                                button4.setBackgroundColor(Color.RED);//colour cahnge
+                               // button4.setBackgroundColor(Color.RED);//colour cahnge
                                 if(button1.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button1.setBackgroundColor(Color.GREEN);
+                                    //button1.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button2.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button2.setBackgroundColor(Color.GREEN);
+                                   // button2.setBackgroundColor(Color.GREEN);
                                 }
                                 else if(button3.getText().toString().equals(question.getAnswer()))
                                 {
-                                    button3.setBackgroundColor(Color.GREEN);
+                                    //button3.setBackgroundColor(Color.GREEN);
                                 }
-                                colorchangeback();
+                                //colorchangeback();
                                 update();
                             }
 
@@ -283,6 +286,10 @@ public class Quiz extends AppCompatActivity {
         myIntent.putExtra("incorrect",String.valueOf(wrong));
         startActivity(myIntent);
 
+    }
+    public void savve(View v)
+    {
+        Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
     }
 
 }
