@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizappcomplete.Model.QuizInfo;
 import com.example.quizappcomplete.Model.Setquestions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,13 +25,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Quiz extends AppCompatActivity {
     Button button1,button2,button3,button4;
-    TextView textView;
+    FloatingActionButton next,back;
+    TextView textView,qno,timmer;
     private FirebaseAuth mAuth;
-    int wrong=0,correct=0,max=5,maxquestions=1;
+    int wrong=0,correct=0,max=5,maxquestions=1,quesyionno=1;
     DatabaseReference reference;
     String time ,quizid;
     int count;
-
+    QuizInfo mQuizInfo;
 
 
     @Override
@@ -40,15 +44,26 @@ public class Quiz extends AppCompatActivity {
         button2=(Button) findViewById(R.id.btnOption2_Student);
         button3=(Button) findViewById(R.id.btnOption3_Student);
         button4=(Button) findViewById(R.id.btnOption4_Student);
+        qno=(TextView) findViewById(R.id.qno);
+        next=(FloatingActionButton) findViewById(R.id.next);
+        back=(FloatingActionButton) findViewById(R.id.back);
         textView=(TextView) findViewById(R.id.tvQuestion_Student);
+        timmer=(TextView) findViewById(R.id.textView10);
         Intent i = getIntent();
         quizid = i.getStringExtra("quizid");
+       // int timer=mQuizInfo.getDuration();
+        //int tim=Integer.parseInt(mQuizInfo.getDuration());
+        //tim=tim*60;
+
 
 
 
         update();
+        reverseTimer(120,timmer);
+
     }
     public void update() {
+        qno.setText(Integer.toString(maxquestions));
 
         if(maxquestions==max)
         {
@@ -271,6 +286,8 @@ public class Quiz extends AppCompatActivity {
         maxquestions++;
         update();
     }
+
+
     public void submit(View v)
     {
         Resultq();
@@ -287,6 +304,30 @@ public class Quiz extends AppCompatActivity {
     public void savve(View v)
     {
         Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void reverseTimer(int Seconds,final TextView tv){
+
+        new CountDownTimer(Seconds* 1000+1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                tv.setText(String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
+            }
+
+            public void onFinish() {
+                tv.setText("Completed");
+                Intent myIntent = new Intent(Quiz.this,Results.class);
+                myIntent.putExtra("total",String.valueOf(maxquestions));
+                myIntent.putExtra("correct",String.valueOf(correct));
+                myIntent.putExtra("incorrect",String.valueOf(wrong));
+                startActivity(myIntent);
+            }
+        }.start();
     }
 
 }

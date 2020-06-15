@@ -16,6 +16,7 @@ public class Results extends AppCompatActivity {
     TextView wrong,total,correct,vemail,vname;
     private FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,7 @@ public class Results extends AppCompatActivity {
         total=(TextView) findViewById(R.id.totalans);
         correct=(TextView) findViewById(R.id.correctans);
         wrong=(TextView) findViewById(R.id.wrongans);
+
 
 
 
