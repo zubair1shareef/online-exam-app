@@ -7,16 +7,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.quizappcomplete.Model.Result;
 import com.example.quizappcomplete.Model.Setquestions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,11 +36,11 @@ public class Quiz extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        button1=(Button) findViewById(R.id.button1);
-        button2=(Button) findViewById(R.id.button2);
-        button3=(Button) findViewById(R.id.button3);
-        button4=(Button) findViewById(R.id.button4);
-        textView=(TextView) findViewById(R.id.textView);
+        button1=(Button) findViewById(R.id.btnOption1_Student);
+        button2=(Button) findViewById(R.id.btnOption2_Student);
+        button3=(Button) findViewById(R.id.btnOption3_Student);
+        button4=(Button) findViewById(R.id.btnOption4_Student);
+        textView=(TextView) findViewById(R.id.tvQuestion_Student);
         Intent i = getIntent();
         quizid = i.getStringExtra("quizid");
 

@@ -14,4 +14,5 @@
     <string name="welcome">Welcome</string>
     <string name="save_quiz">Save Quiz Information</string>
     <string name="createQuestion">Create Question</string>
+    <string name="rules">1. Once the quiz is started, you cannot leave without submitting. \n2. If you run out of time, your quiz will be auto submitted.</string>
 </resources>
