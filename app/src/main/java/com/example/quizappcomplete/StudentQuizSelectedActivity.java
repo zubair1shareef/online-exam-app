@@ -60,16 +60,12 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
         Branch.setText(mQuizInfo.getBranch());
         Marksperquestion.setText(mQuizInfo.getMarksperquestion());
 
-
-
-
-
-
     }
     public void startquiz(View v)
     {
         Intent indent=new Intent(this,Quiz.class);
         indent.putExtra("quizid",String.valueOf(mQuizId));
+        indent.putExtra ("quizInfo",mQuizInfo);
         startActivity(indent);
 
     }

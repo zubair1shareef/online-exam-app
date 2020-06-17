@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Quiz extends AppCompatActivity {
+    private static final String TAG = "QuizActivity";
     Button button1,button2,button3,button4;
     FloatingActionButton next,back;
     TextView textView,qno,timmer;
@@ -48,18 +50,32 @@ public class Quiz extends AppCompatActivity {
         next=(FloatingActionButton) findViewById(R.id.next);
         back=(FloatingActionButton) findViewById(R.id.back);
         textView=(TextView) findViewById(R.id.tvQuestion_Student);
-        timmer=(TextView) findViewById(R.id.textView10);
+        timmer=(TextView) findViewById(R.id.tvTimer);
         Intent i = getIntent();
         quizid = i.getStringExtra("quizid");
-       // int timer=mQuizInfo.getDuration();
-        //int tim=Integer.parseInt(mQuizInfo.getDuration());
-        //tim=tim*60;
+        mQuizInfo = (QuizInfo) i.getSerializableExtra ("quizInfo");
+        int timer=Integer.parseInt(mQuizInfo.getDuration());
+        timer=timer*60;
+        Log.d (TAG, "onCreate: Timer "+timer);
 
 
+        reference = FirebaseDatabase.getInstance ().getReference ("Question/"+quizid);
+        reference.addListenerForSingleValueEvent (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                max = Integer.parseInt (String.valueOf (dataSnapshot.getChildrenCount ()));
 
+                Log.d (TAG, "onDataChange: No. of question : "+max);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         update();
-        reverseTimer(120,timmer);
+        reverseTimer(timer,timmer);
 
     }
     public void update() {

@@ -41,10 +41,6 @@ public class Results extends AppCompatActivity {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
             String email = user.getEmail();
-
-
-
-
             boolean emailVerified = user.isEmailVerified();
 
 
