@@ -314,7 +314,11 @@ public class Quiz extends AppCompatActivity {
         myIntent.putExtra("total",String.valueOf(max));
         myIntent.putExtra("correct",String.valueOf(correct));
         myIntent.putExtra("incorrect",String.valueOf(wrong));
+        myIntent.putExtra ("quizInfo",mQuizInfo);
+        myIntent.putExtra ("quizId",quizid);
+        finish ();
         startActivity(myIntent);
+
 
     }
     public void savve(View v)
@@ -341,6 +345,9 @@ public class Quiz extends AppCompatActivity {
                 myIntent.putExtra("total",String.valueOf(maxquestions));
                 myIntent.putExtra("correct",String.valueOf(correct));
                 myIntent.putExtra("incorrect",String.valueOf(wrong));
+                myIntent.putExtra ("quizInfo",mQuizInfo);
+                myIntent.putExtra ("quizId",quizid);
+                finish ();
                 startActivity(myIntent);
             }
         }.start();

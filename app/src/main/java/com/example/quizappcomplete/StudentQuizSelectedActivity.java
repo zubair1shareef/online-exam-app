@@ -66,6 +66,7 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
         Intent indent=new Intent(this,Quiz.class);
         indent.putExtra("quizid",String.valueOf(mQuizId));
         indent.putExtra ("quizInfo",mQuizInfo);
+        finish ();
         startActivity(indent);
 
     }
