@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizappcomplete.DataAdapters.QuizListAdapter;
@@ -50,6 +51,9 @@ public class StudentDashboardActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mReference;
 
+
+    TextView tvName, tvEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -73,6 +77,13 @@ public class StudentDashboardActivity extends AppCompatActivity {
         mActionBarDrawerToggle.syncState();
 
         mNavigationView = findViewById(R.id.navpane_student);
+
+        tvEmail = mNavigationView.getHeaderView (0).findViewById (R.id.navEmail);
+        tvName = mNavigationView.getHeaderView (0).findViewById (R.id.navName);
+
+        tvName.setText (mAuth.getCurrentUser ().getDisplayName ());
+        tvEmail.setText (mAuth.getCurrentUser ().getEmail ());
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
