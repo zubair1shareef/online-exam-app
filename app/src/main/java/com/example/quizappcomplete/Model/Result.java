@@ -1,22 +1,28 @@
 package com.example.quizappcomplete.Model;
 
-public class Result {
-    String total,correct,wrong,name,email;
+import java.io.Serializable;
 
-    public Result(String total, String correct, String wrong,String name,String email) {
-        this.total = total;
+public class Result implements Serializable {
+    String totalQues,correct,wrong,name,email,marksObtained, totalMarks;
+
+    public Result(String total, String correct, String wrong, String name, String email, String marksObtained, String totalMarks) {
+        this.totalQues = total;
         this.correct = correct;
         this.wrong = wrong;
-        this.name=name;
-        this.email=email;
+        this.name = name;
+        this.email = email;
+        this.marksObtained = marksObtained;
+        this.totalMarks = totalMarks;
     }
 
-    public String getTotal() {
-        return total;
+    public Result(){}
+
+    public String getTotalQues() {
+        return totalQues;
     }
 
-    public void setTotal(String total) {
-        this.total = total;
+    public void setTotalQues(String total) {
+        this.totalQues = total;
     }
 
     public String getCorrect() {

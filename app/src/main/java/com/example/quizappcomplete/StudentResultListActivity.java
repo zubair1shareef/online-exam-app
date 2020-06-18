@@ -12,11 +12,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizappcomplete.DataAdapters.QuizListAdapter;
+import com.example.quizappcomplete.DataAdapters.QuizWithResultAdapter;
 import com.example.quizappcomplete.Model.QuizInfo;
 import com.example.quizappcomplete.Model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,9 +32,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class StudentDashboardActivity extends AppCompatActivity {
+public class StudentResultListActivity extends AppCompatActivity {
 
-    private static final String TAG = "StudentDashboard" ;
+    private static final String TAG = "StudentResultList" ;
     private static final String MY_PREFS_NAME = "CurrentUser";
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
@@ -45,7 +45,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     ArrayList<QuizInfo> mQuizInfoArrayList;
     ArrayList<String> mQuizIdList;
-    QuizListAdapter mAdapter;
+    QuizWithResultAdapter mAdapter;
 
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
@@ -57,7 +57,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_student_dashboard);
+        setContentView (R.layout.activity_student_result_list);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         Gson gson = new Gson();
@@ -70,13 +70,13 @@ public class StudentDashboardActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance ();
         mDatabase = FirebaseDatabase.getInstance ();
 
-        mDrawerLayout = findViewById(R.id.activity_student_dashboard);
+        mDrawerLayout = findViewById(R.id.activity_student_result_list_dashboard);
         mActionBarDrawerToggle = new ActionBarDrawerToggle (this, mDrawerLayout,R.string.Open, R.string.Close);
 
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
-        mNavigationView = findViewById(R.id.navpane_student);
+        mNavigationView = findViewById(R.id.navpane_student_result_list);
 
         tvEmail = mNavigationView.getHeaderView (0).findViewById (R.id.navEmail);
         tvName = mNavigationView.getHeaderView (0).findViewById (R.id.navName);
@@ -90,23 +90,23 @@ public class StudentDashboardActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 switch(id)
                 {
-                    case R.id.nav_prof_quiz:
-                        Toast.makeText(StudentDashboardActivity.this, "Your Quiz",Toast.LENGTH_SHORT).show();
-                        break;
+                    case R.id.nav_prof_quiz:{
+                        Intent intent = new Intent (StudentResultListActivity.this, StudentDashboardActivity.class);
+                        finish ();
+                        startActivity (intent);
+                    }
                     case R.id.nav_prof_signout:{
                         mAuth.signOut ();
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                         editor.clear ();
                         editor.commit();
-                        Intent intent = new Intent (StudentDashboardActivity.this, WelcomeActivity.class);
+                        Intent intent = new Intent (StudentResultListActivity.this, WelcomeActivity.class);
                         finish ();
                         startActivity (intent);
                     }break;
-                    case R.id.nav_prof_result:{
-                        Intent intent = new Intent (StudentDashboardActivity.this, StudentResultListActivity.class);
-                        finish ();
-                        startActivity (intent);
-                    }break;
+                    case R.id.nav_prof_result:
+                        Toast.makeText(StudentResultListActivity.this, "Your Results",Toast.LENGTH_SHORT).show();
+                        break;
                     default:
                         return true;
                 }
@@ -118,9 +118,9 @@ public class StudentDashboardActivity extends AppCompatActivity {
         mQuizIdList = new ArrayList<> ();
         mQuizInfoArrayList = new ArrayList<> ();
 
-        mRecyclerView = findViewById (R.id.student_quiz_list_recycler);
+        mRecyclerView = findViewById (R.id.student_result_list_recycler);
         mRecyclerView.setLayoutManager (new LinearLayoutManager (this));
-        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, StudentQuizSelectedActivity.class);
+        mAdapter = new QuizWithResultAdapter (mQuizInfoArrayList, mQuizIdList, this, Results.class);
         mRecyclerView.setAdapter (mAdapter);
 
         mReference = mDatabase.getReference ("Quiz");
@@ -151,7 +151,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText (StudentDashboardActivity.this, "Database Error", Toast.LENGTH_SHORT).show ();
+                Toast.makeText (StudentResultListActivity.this, "Database Error", Toast.LENGTH_SHORT).show ();
             }
         });
     }

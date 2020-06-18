@@ -41,9 +41,10 @@ public class Results extends AppCompatActivity {
         Branch=(TextView) findViewById(R.id.tvBranch_StudentResult);
 
         Intent i = getIntent();
-        String Stotal = i.getStringExtra("total");
-        String Scorrect = i.getStringExtra("correct");
-        String Swrong = i.getStringExtra("incorrect");
+        Result result = (Result) i.getSerializableExtra ("result");
+        String Stotal = result.getTotalQues ();
+        String Scorrect = result.getCorrect ();
+        String Swrong = result.getWrong ();
         quizId = i.getStringExtra ("quizId");
         mQuizInfo = (QuizInfo) i.getSerializableExtra ("quizInfo");
         total.setText(Stotal);
@@ -65,21 +66,7 @@ public class Results extends AppCompatActivity {
         getSupportActionBar ().setTitle (mQuizInfo.getTitle ());
         getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-            boolean emailVerified = user.isEmailVerified();
 
-
-            String uid = user.getUid();
-            Result res=new Result(Stotal,Scorrect,Swrong,name,email);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("Results/"+quizId);
-            myRef.child(uid).setValue(res);
-
-        }
 
     }
 

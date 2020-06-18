@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizappcomplete.Model.QuizInfo;
+import com.example.quizappcomplete.Model.Result;
 import com.example.quizappcomplete.Model.Setquestions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +42,7 @@ public class Quiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
+        mAuth = FirebaseAuth.getInstance ();
         button1=(Button) findViewById(R.id.btnOption1_Student);
         button2=(Button) findViewById(R.id.btnOption2_Student);
         button3=(Button) findViewById(R.id.btnOption3_Student);
@@ -310,12 +311,22 @@ public class Quiz extends AppCompatActivity {
     }
     public void Resultq()
     {
+        int marksperQues = Integer.parseInt (mQuizInfo.getMarksperquestion ());
+        String totalMarks = mQuizInfo.getTotalMarks ();
+        String obtainedMarks = String.valueOf (marksperQues * max);
         Intent myIntent = new Intent(Quiz.this,Results.class);
-        myIntent.putExtra("total",String.valueOf(max));
-        myIntent.putExtra("correct",String.valueOf(correct));
-        myIntent.putExtra("incorrect",String.valueOf(wrong));
+        Result res=new Result(String.valueOf (max),
+                String.valueOf (correct),
+                String.valueOf (wrong)
+                ,mAuth.getCurrentUser ().getDisplayName (),mAuth.getCurrentUser ().getEmail (),obtainedMarks,totalMarks);
+        myIntent.putExtra("result",res);
         myIntent.putExtra ("quizInfo",mQuizInfo);
         myIntent.putExtra ("quizId",quizid);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Results/"+quizid);
+        myRef.child(mAuth.getUid ()).setValue(res);
+
         finish ();
         startActivity(myIntent);
 
@@ -341,10 +352,21 @@ public class Quiz extends AppCompatActivity {
 
             public void onFinish() {
                 tv.setText("Completed");
+                int marksperQues = Integer.parseInt (mQuizInfo.getMarksperquestion ());
+                String totalMarks = mQuizInfo.getTotalMarks ();
+                String obtainedMarks = String.valueOf (marksperQues * max);
                 Intent myIntent = new Intent(Quiz.this,Results.class);
-                myIntent.putExtra("total",String.valueOf(maxquestions));
-                myIntent.putExtra("correct",String.valueOf(correct));
-                myIntent.putExtra("incorrect",String.valueOf(wrong));
+                Result res=new Result(String.valueOf (max),
+                        String.valueOf (correct),
+                        String.valueOf (wrong)
+                        ,mAuth.getCurrentUser ().getDisplayName (),mAuth.getCurrentUser ().getEmail (),obtainedMarks,totalMarks);
+                myIntent.putExtra("result",res);
+                myIntent.putExtra ("quizInfo",mQuizInfo);
+                myIntent.putExtra ("quizId",quizid);
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("Results/"+quizid);
+                myRef.child(mAuth.getUid ()).setValue(res);
                 myIntent.putExtra ("quizInfo",mQuizInfo);
                 myIntent.putExtra ("quizId",quizid);
                 finish ();

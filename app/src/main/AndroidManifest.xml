@@ -9,17 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentQuizSelectedActivity"
-            android:screenOrientation="fullSensor"></activity>
-        <activity android:name=".StudentDashboardActivity"
+        <activity android:name=".StudentResultListActivity"></activity>
+        <activity
+            android:name=".StudentQuizSelectedActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".Model.Adminaddinst"
-            android:screenOrientation="fullSensor"/>
-        <activity android:name=".Results"
+        <activity
+            android:name=".StudentDashboardActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".ProfessorViewQuestionsActivity"
+        <activity
+            android:name=".Model.Adminaddinst"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".WelcomeActivity"
+        <activity
+            android:name=".Results"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".ProfessorViewQuestionsActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".WelcomeActivity"
             android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,18 +34,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfessorDashboardActivity"
+        <activity
+            android:name=".ProfessorDashboardActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".StudentProfileCompleteActivity"
+        <activity
+            android:name=".StudentProfileCompleteActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".ProfessorNewQuizActivity"
+        <activity
+            android:name=".ProfessorNewQuizActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".ProfessorAddQuestionActivity"
-
-            android:screenOrientation="fullSensor"/>
-        <activity android:name=".Quiz"
-
-            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name=".ProfessorAddQuestionActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".Quiz"
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".Register"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
