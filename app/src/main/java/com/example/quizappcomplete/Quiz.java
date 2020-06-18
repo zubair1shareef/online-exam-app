@@ -82,12 +82,17 @@ public class Quiz extends AppCompatActivity {
     public void update() {
         qno.setText(Integer.toString(maxquestions));
 
-        if(maxquestions==max)
-        {
-           Resultq();
+        if(maxquestions>max)
+        { maxquestions=max;
+            Toast.makeText(getApplicationContext(),"no question left",Toast.LENGTH_SHORT).show();
+
 
         }
-        else if(maxquestions>0)
+        else if(maxquestions<1)
+        {
+            maxquestions=1;
+        }
+        else
         {  //maxquestions++;
             reference= FirebaseDatabase.getInstance().getReference().child("Question").child(quizid).child(String.valueOf(maxquestions));
             reference.addValueEventListener(new ValueEventListener() {
@@ -104,7 +109,7 @@ public class Quiz extends AppCompatActivity {
                         public void onClick(View v) {
                             if(button1.getText().toString().equals(question.getAnswer()))
                             {
-                                Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
                                // button1.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
@@ -145,7 +150,7 @@ public class Quiz extends AppCompatActivity {
                         public void onClick(View v) {
                             if(button2.getText().toString().equals(question.getAnswer()))
                             {
-                                Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
+
                                // button2.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
@@ -188,7 +193,7 @@ public class Quiz extends AppCompatActivity {
 
                             if(button3.getText().toString().equals(question.getAnswer()))
                             {
-                                Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
+
                                // button3.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
@@ -229,7 +234,7 @@ public class Quiz extends AppCompatActivity {
                         public void onClick(View v) {
                             if(button4.getText().toString().equals(question.getAnswer()))
                             {
-                                Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
+
                                // button4.setBackgroundColor(Color.GREEN);
                                 correct = correct +1;
                                 Handler handler=new Handler();
@@ -307,6 +312,7 @@ public class Quiz extends AppCompatActivity {
 
     public void submit(View v)
     {
+
         Resultq();
     }
     public void Resultq()
@@ -333,7 +339,21 @@ public class Quiz extends AppCompatActivity {
 
     }
     public void savve(View v)
-    {
+    {  int marksperQues = Integer.parseInt (mQuizInfo.getMarksperquestion ());
+        Intent myIntent = new Intent(Quiz.this,Results.class);
+        String totalMarks = mQuizInfo.getTotalMarks ();
+        String obtainedMarks = String.valueOf (marksperQues * max);
+        Result res=new Result(String.valueOf (max),
+                String.valueOf (correct),
+                String.valueOf (wrong)
+                ,mAuth.getCurrentUser ().getDisplayName (),mAuth.getCurrentUser ().getEmail (),obtainedMarks,totalMarks);
+        myIntent.putExtra("result",res);
+        myIntent.putExtra ("quizInfo",mQuizInfo);
+        myIntent.putExtra ("quizId",quizid);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Results/"+quizid);
+        myRef.child(mAuth.getUid ()).setValue(res);
+
         Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
     }
 
