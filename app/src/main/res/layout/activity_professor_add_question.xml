@@ -99,7 +99,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/textfield"
-            android:hint="Enter Answer"
+            android:hint="Enter Correct Option Number"
             android:padding="10dp"
             android:textColorHint="@color/colorPrimary"/>
 

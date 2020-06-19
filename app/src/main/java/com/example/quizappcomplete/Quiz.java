@@ -3,6 +3,7 @@ package com.example.quizappcomplete;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizappcomplete.Model.Question;
 import com.example.quizappcomplete.Model.QuizInfo;
+import com.example.quizappcomplete.Model.Response;
 import com.example.quizappcomplete.Model.Result;
 import com.example.quizappcomplete.Model.Setquestions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,17 +28,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Quiz extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
-    Button button1,button2,button3,button4;
+    Button button1,button2,button3,button4,btnSubmit,btnSave;
     FloatingActionButton next,back;
-    TextView textView,qno,timmer;
+    TextView tvquestion,qno,timmer;
     private FirebaseAuth mAuth;
-    int wrong=0,correct=0,max=5,maxquestions=1,quesyionno=1;
+    int wrong=0,correct=0,max=0;
     DatabaseReference reference;
     String time ,quizid;
     int count;
     QuizInfo mQuizInfo;
+
+    List<Question> mQuestionList;
+    List<Response> mResponseList;
+    private ProgressDialog mDialog;
+
+    int currentQuestion=0, currentOptionSelected=0;
 
 
     @Override
@@ -47,10 +59,12 @@ public class Quiz extends AppCompatActivity {
         button2=(Button) findViewById(R.id.btnOption2_Student);
         button3=(Button) findViewById(R.id.btnOption3_Student);
         button4=(Button) findViewById(R.id.btnOption4_Student);
+        btnSubmit = findViewById (R.id.btnSubmit_Student);
+        btnSave = findViewById (R.id.btnSave_Student);
         qno=(TextView) findViewById(R.id.qno);
         next=(FloatingActionButton) findViewById(R.id.next);
         back=(FloatingActionButton) findViewById(R.id.back);
-        textView=(TextView) findViewById(R.id.tvQuestion_Student);
+        tvquestion=(TextView) findViewById(R.id.tvQuestion_Student);
         timmer=(TextView) findViewById(R.id.tvTimer);
         Intent i = getIntent();
         quizid = i.getStringExtra("quizid");
@@ -58,15 +72,26 @@ public class Quiz extends AppCompatActivity {
         int timer=Integer.parseInt(mQuizInfo.getDuration());
         timer=timer*60;
         Log.d (TAG, "onCreate: Timer "+timer);
-
-
+        mQuestionList = new ArrayList<> ();
+        mResponseList = new ArrayList<> ();
+        mDialog = new ProgressDialog (this);
+        mDialog.setMessage ("Loading Questions...");
         reference = FirebaseDatabase.getInstance ().getReference ("Question/"+quizid);
         reference.addListenerForSingleValueEvent (new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 max = Integer.parseInt (String.valueOf (dataSnapshot.getChildrenCount ()));
-
                 Log.d (TAG, "onDataChange: No. of question : "+max);
+                for(DataSnapshot data : dataSnapshot.getChildren ())
+                {
+                    Question question = data.getValue (Question.class);
+                    Response response = new Response (question.getAnswer (),"0",question.getQuestionno ());
+                    mQuestionList.add (question);
+                    mResponseList.add (response);
+
+                    updateQuestion();
+                }
+                mDialog.dismiss ();
             }
 
             @Override
@@ -75,251 +100,139 @@ public class Quiz extends AppCompatActivity {
             }
         });
 
-        update();
         reverseTimer(timer,timmer);
 
-    }
-    public void update() {
-        qno.setText(Integer.toString(maxquestions));
-
-        if(maxquestions>max)
-        { maxquestions=max;
-            Toast.makeText(getApplicationContext(),"no question left",Toast.LENGTH_SHORT).show();
-
-
-        }
-        else if(maxquestions<1)
-        {
-            maxquestions=1;
-        }
-        else
-        {  //maxquestions++;
-            reference= FirebaseDatabase.getInstance().getReference().child("Question").child(quizid).child(String.valueOf(maxquestions));
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    final Setquestions question=dataSnapshot.getValue(Setquestions.class);
-                    textView.setText(question.getQuestion());
-                    button1.setText(question.getOption1());
-                    button2.setText(question.getOption2());
-                    button3.setText(question.getOption3());
-                    button4.setText(question.getOption4());
-                    button1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(button1.getText().toString().equals(question.getAnswer()))
-                            {
-                                //Toast.makeText(getApplicationContext(),"Correct answer",Toast.LENGTH_SHORT).show();
-                               // button1.setBackgroundColor(Color.GREEN);
-                                correct = correct +1;
-                                Handler handler=new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        //button1.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
-                                        update();
-                                    }
-                                },1000);
-                            }
-                            else
-                            {
-                                wrong++;
-                               // button1.setBackgroundColor(Color.RED);//colour cahnge
-                                if(button2.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button2.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button3.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button3.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button4.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button4.setBackgroundColor(Color.GREEN);
-                                }
-                              //  colorchangeback();
-                                update();
-                            }
-
-
-                        }
-                    });
-                    button2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(button2.getText().toString().equals(question.getAnswer()))
-                            {
-
-                               // button2.setBackgroundColor(Color.GREEN);
-                                correct = correct +1;
-                                Handler handler=new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                       // button2.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
-                                        update();
-                                    }
-                                },1000);
-                            }
-                            else
-                            {
-                                wrong++;
-                               // button2.setBackgroundColor(Color.RED);//colour cahnge
-                                if(button1.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button1.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button3.getText().toString().equals(question.getAnswer()))
-                                {
-                                    //button3.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button4.getText().toString().equals(question.getAnswer()))
-                                {
-                                    //button4.setBackgroundColor(Color.GREEN);
-                                }
-                                //colorchangeback();
-                                update();
-                            }
-
-
-
-                        }
-                    });
-                    button3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if(button3.getText().toString().equals(question.getAnswer()))
-                            {
-
-                               // button3.setBackgroundColor(Color.GREEN);
-                                correct = correct +1;
-                                Handler handler=new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                     //   button3.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
-                                        update();
-                                    }
-                                },1000);
-                            }
-                            else
-                            {
-                                wrong++;
-                               // button3.setBackgroundColor(Color.RED);//colour cahnge
-                                if(button1.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button1.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button2.getText().toString().equals(question.getAnswer()))
-                                {
-                                    //button2.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button4.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button4.setBackgroundColor(Color.GREEN);
-                                }
-                               // colorchangeback();
-                                update();
-                            }
-
-
-                        }
-                    });
-                    button4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(button4.getText().toString().equals(question.getAnswer()))
-                            {
-
-                               // button4.setBackgroundColor(Color.GREEN);
-                                correct = correct +1;
-                                Handler handler=new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                       // button4.setBackgroundColor(Color.parseColor("#E3D3EA"));//colour change
-                                        update();
-                                    }
-                                },1000);
-                            }
-                            else
-                            {
-                                wrong++;
-                               // button4.setBackgroundColor(Color.RED);//colour cahnge
-                                if(button1.getText().toString().equals(question.getAnswer()))
-                                {
-                                    //button1.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button2.getText().toString().equals(question.getAnswer()))
-                                {
-                                   // button2.setBackgroundColor(Color.GREEN);
-                                }
-                                else if(button3.getText().toString().equals(question.getAnswer()))
-                                {
-                                    //button3.setBackgroundColor(Color.GREEN);
-                                }
-                                //colorchangeback();
-                                update();
-                            }
-
-                        }
-                    });
-
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-
-
-    }
-
-    public void colorchangeback() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                button1.setBackgroundColor(Color.parseColor("#E3D3EA"));
-                button2.setBackgroundColor(Color.parseColor("#E3D3EA"));
-                button3.setBackgroundColor(Color.parseColor("#E3D3EA"));
-                button4.setBackgroundColor(Color.parseColor("#E3D3EA"));
-
+        button1.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                currentOptionSelected=1;
+                setUserSelection ();
             }
-        }, 1000);
-        //chnage tho color to default
+        });
+        button2.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                currentOptionSelected=2;
+                setUserSelection ();
+            }
+        });
+        button3.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                currentOptionSelected=3;
+                setUserSelection ();
+            }
+        });
+        button4.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                currentOptionSelected=4;
+                setUserSelection ();
+            }
+        });
+        btnSubmit.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                submitQuiz ();
+            }
+        });
+
+        btnSave.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                saveAnswer (String.valueOf (currentOptionSelected));
+            }
+        });
+
+    }
+    public void updateQuestion() {
+
+        Question question = mQuestionList.get (currentQuestion);
+        qno.setText (question.getQuestionno ());
+        tvquestion.setText (question.getQuestion ());
+        button1.setText (question.getOption1 ());
+        button2.setText (question.getOption2 ());
+        button3.setText (question.getOption3 ());
+        button4.setText (question.getOption4 ());
+        resetButtons ();
+        Response response = mResponseList.get (currentQuestion);
+        if(!response.getUserAnswer ().equals ("0"))
+        {
+            switch (response.getUserAnswer ())
+            {
+                case "1":currentOptionSelected=1;
+                    break;
+                case "2":currentOptionSelected=2;
+                    break;
+                case "3":currentOptionSelected=3;
+                    break;
+                case "4":currentOptionSelected=4;
+                    break;
+                default:break;
+            }
+        }
+        setUserSelection();
+    }
+
+    public void resetButtons() {
+        button1.setBackgroundResource (R.drawable.option_normal);
+        button2.setBackgroundResource (R.drawable.option_normal);
+        button3.setBackgroundResource (R.drawable.option_normal);
+        button4.setBackgroundResource (R.drawable.option_normal);
+    }
+
+    public  void setUserSelection()
+    {
+        resetButtons ();
+        switch (currentOptionSelected)
+        {
+            case 1:button1.setBackgroundResource (R.drawable.option_selected);
+                break;
+            case 2:button2.setBackgroundResource (R.drawable.option_selected);
+                break;
+            case 3:button3.setBackgroundResource (R.drawable.option_selected);
+                break;
+            case 4:button4.setBackgroundResource (R.drawable.option_selected);
+                break;
+            default:break;
+        }
     }
     public void back(View v)
     {
-        maxquestions=maxquestions-1;
-        update();
+        if(currentQuestion>0) {
+            currentQuestion = (currentQuestion - 1);
+            currentOptionSelected=0;
+            updateQuestion ();
+        }
+        else
+            Toast.makeText (this, "This is the First Question", Toast.LENGTH_SHORT).show ();
     }
     public  void next(View v)
     {
-        maxquestions++;
-        update();
+        if(currentQuestion<max-1) {
+            currentQuestion = (currentQuestion + 1);
+            currentOptionSelected=0;
+            updateQuestion ();
+        }
+        else
+            Toast.makeText (this, "This is Last Question. Please Submit", Toast.LENGTH_LONG).show ();
     }
 
 
-    public void submit(View v)
-    {
-
-        Resultq();
-    }
-    public void Resultq()
+    public void submitQuiz()
     {
         int marksperQues = Integer.parseInt (mQuizInfo.getMarksperquestion ());
+        for (Response response : mResponseList)
+        {
+            if(response.isAswerCorrect ())
+            {
+                correct++;
+            }
+            else
+                wrong++;
+        }
         String totalMarks = mQuizInfo.getTotalMarks ();
-        String obtainedMarks = String.valueOf (marksperQues * max);
+        String obtainedMarks = String.valueOf (marksperQues * correct);
         Intent myIntent = new Intent(Quiz.this,Results.class);
         Result res=new Result(String.valueOf (max),
                 String.valueOf (correct),
@@ -335,26 +248,12 @@ public class Quiz extends AppCompatActivity {
 
         finish ();
         startActivity(myIntent);
-
-
     }
-    public void savve(View v)
-    {  int marksperQues = Integer.parseInt (mQuizInfo.getMarksperquestion ());
-        Intent myIntent = new Intent(Quiz.this,Results.class);
-        String totalMarks = mQuizInfo.getTotalMarks ();
-        String obtainedMarks = String.valueOf (marksperQues * max);
-        Result res=new Result(String.valueOf (max),
-                String.valueOf (correct),
-                String.valueOf (wrong)
-                ,mAuth.getCurrentUser ().getDisplayName (),mAuth.getCurrentUser ().getEmail (),obtainedMarks,totalMarks);
-        myIntent.putExtra("result",res);
-        myIntent.putExtra ("quizInfo",mQuizInfo);
-        myIntent.putExtra ("quizId",quizid);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Results/"+quizid);
-        myRef.child(mAuth.getUid ()).setValue(res);
 
-        Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
+    public void saveAnswer(String option)
+    {
+        mResponseList.get (currentQuestion).setUserAnswer (option);
+        Toast.makeText (this, "Your response is saved", Toast.LENGTH_SHORT).show ();
     }
 
 
@@ -371,26 +270,7 @@ public class Quiz extends AppCompatActivity {
             }
 
             public void onFinish() {
-                tv.setText("Completed");
-                int marksperQues = Integer.parseInt (mQuizInfo.getMarksperquestion ());
-                String totalMarks = mQuizInfo.getTotalMarks ();
-                String obtainedMarks = String.valueOf (marksperQues * max);
-                Intent myIntent = new Intent(Quiz.this,Results.class);
-                Result res=new Result(String.valueOf (max),
-                        String.valueOf (correct),
-                        String.valueOf (wrong)
-                        ,mAuth.getCurrentUser ().getDisplayName (),mAuth.getCurrentUser ().getEmail (),obtainedMarks,totalMarks);
-                myIntent.putExtra("result",res);
-                myIntent.putExtra ("quizInfo",mQuizInfo);
-                myIntent.putExtra ("quizId",quizid);
-
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("Results/"+quizid);
-                myRef.child(mAuth.getUid ()).setValue(res);
-                myIntent.putExtra ("quizInfo",mQuizInfo);
-                myIntent.putExtra ("quizId",quizid);
-                finish ();
-                startActivity(myIntent);
+                submitQuiz ();
             }
         }.start();
     }
