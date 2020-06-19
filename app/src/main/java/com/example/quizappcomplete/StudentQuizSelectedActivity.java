@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import com.example.quizappcomplete.Model.QuizInfo;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+
 public class StudentQuizSelectedActivity extends AppCompatActivity {
 
     QuizInfo mQuizInfo;
@@ -38,7 +43,7 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
         getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
         update();
 
-        Toast.makeText(getApplicationContext(),mQuizInfo.getTime(),Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -63,11 +68,44 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
     }
     public void startquiz(View v)
     {
-        Intent indent=new Intent(this,Quiz.class);
-        indent.putExtra("quizid",String.valueOf(mQuizId));
-        indent.putExtra ("quizInfo",mQuizInfo);
-        finish ();
-        startActivity(indent);
+        java.util.Date todayDate = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        String todayString = formatter.format(todayDate);
+        String ddd=mQuizInfo.getDate();
+        String s = DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalDateTime.now());
+        //  Toast.makeText(getApplicationContext(), todayString,Toast.LENGTH_SHORT).show();
+
+        if(todayString.compareTo(mQuizInfo.getDate())>0)
+        {
+           if(s.compareTo(mQuizInfo.getTime())>0)
+             { Intent indent=new Intent(this,Quiz.class);
+               indent.putExtra("quizid",String.valueOf(mQuizId));
+               indent.putExtra ("quizInfo",mQuizInfo);
+               finish ();
+                startActivity(indent);
+             }
+           else if (s.compareTo(mQuizInfo.getTime())<0)
+           {
+               Toast.makeText(getApplicationContext(), "quiz will start at"+mQuizInfo.getTime(),Toast.LENGTH_SHORT).show();
+           }
+
+        }
+        else   if(todayString.equals(mQuizInfo.getDate()))
+        {
+
+            Intent indent=new Intent(this,Quiz.class);
+            indent.putExtra("quizid",String.valueOf(mQuizId));
+            indent.putExtra ("quizInfo",mQuizInfo);
+            finish ();
+            startActivity(indent);
+        }
+
+
+        else if(todayString.compareTo(mQuizInfo.getDate())<0)
+        {
+            Toast.makeText(getApplicationContext(), "cant start quiz",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
