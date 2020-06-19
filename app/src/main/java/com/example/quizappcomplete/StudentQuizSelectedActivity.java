@@ -1,8 +1,10 @@
 package com.example.quizappcomplete;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizappcomplete.Model.QuizInfo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -67,8 +76,15 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
 
     }
     public void startquiz(View v)
-    {
-        java.util.Date todayDate = Calendar.getInstance().getTime();
+    {    final String uid;
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
+
+
+
+       java.util.Date todayDate = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String todayString = formatter.format(todayDate);
         String ddd=mQuizInfo.getDate();
@@ -78,11 +94,34 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
         if(todayString.compareTo(mQuizInfo.getDate())>0)
         {
            if(s.compareTo(mQuizInfo.getTime())>0)
-             { Intent indent=new Intent(this,Quiz.class);
-               indent.putExtra("quizid",String.valueOf(mQuizId));
-               indent.putExtra ("quizInfo",mQuizInfo);
-               finish ();
-                startActivity(indent);
+             {
+                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                 rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(DataSnapshot snapshot) {
+                         if (snapshot.child("Results").child(mQuizId).hasChild(uid)) {
+
+
+
+                             Toast.makeText(getApplicationContext(),"Already Attempted",Toast.LENGTH_SHORT).show();
+                         }
+                         else
+                         {
+                             Intent indent = new Intent(StudentQuizSelectedActivity.this, Quiz.class);
+                             indent.putExtra("quizid", String.valueOf(mQuizId));
+                             indent.putExtra("quizInfo", mQuizInfo);
+                             finish();
+                             startActivity(indent);
+
+                         }
+                     }
+
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                     }
+                 });
+
              }
            else if (s.compareTo(mQuizInfo.getTime())<0)
            {
@@ -93,19 +132,39 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
         else   if(todayString.equals(mQuizInfo.getDate()))
         {
 
-            Intent indent=new Intent(this,Quiz.class);
-            indent.putExtra("quizid",String.valueOf(mQuizId));
-            indent.putExtra ("quizInfo",mQuizInfo);
-            finish ();
-            startActivity(indent);
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.child("Results").child(mQuizId).hasChild(uid)) {
+
+
+
+                        Toast.makeText(getApplicationContext(),"Already Attempted",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Intent indent = new Intent(StudentQuizSelectedActivity.this, Quiz.class);
+                        indent.putExtra("quizid", String.valueOf(mQuizId));
+                        indent.putExtra("quizInfo", mQuizInfo);
+                        finish();
+                        startActivity(indent);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
 
 
         else if(todayString.compareTo(mQuizInfo.getDate())<0)
         {
-            Toast.makeText(getApplicationContext(), "cant start quiz",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "quiz will be available from "+mQuizInfo.getDate(),Toast.LENGTH_SHORT).show();
         }
-
 
     }
 
