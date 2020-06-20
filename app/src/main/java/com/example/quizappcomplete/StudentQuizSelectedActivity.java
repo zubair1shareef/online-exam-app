@@ -82,9 +82,7 @@ public class StudentQuizSelectedActivity extends AppCompatActivity {
         uid = user.getUid();
 
 
-
-
-       java.util.Date todayDate = Calendar.getInstance().getTime();
+        java.util.Date todayDate = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         String todayString = formatter.format(todayDate);
         String ddd=mQuizInfo.getDate();
