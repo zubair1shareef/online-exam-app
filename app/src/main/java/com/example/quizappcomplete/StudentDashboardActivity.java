@@ -90,10 +90,10 @@ public class StudentDashboardActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 switch(id)
                 {
-                    case R.id.nav_prof_quiz:
+                    case R.id.nav_student_quiz:
                         Toast.makeText(StudentDashboardActivity.this, "Your Quiz",Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.nav_prof_signout:{
+                    case R.id.nav_student_signout:{
                         mAuth.signOut ();
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                         editor.clear ();
@@ -102,7 +102,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
                         finish ();
                         startActivity (intent);
                     }break;
-                    case R.id.nav_prof_result:{
+                    case R.id.nav_student_result:{
                         Intent intent = new Intent (StudentDashboardActivity.this, StudentResultListActivity.class);
                         finish ();
                         startActivity (intent);

@@ -17,6 +17,22 @@ public class Result implements Serializable {
 
     public Result(){}
 
+    public String getMarksObtained() {
+        return marksObtained;
+    }
+
+    public void setMarksObtained(String marksObtained) {
+        this.marksObtained = marksObtained;
+    }
+
+    public String getTotalMarks() {
+        return totalMarks;
+    }
+
+    public void setTotalMarks(String totalMarks) {
+        this.totalMarks = totalMarks;
+    }
+
     public String getTotalQues() {
         return totalQues;
     }

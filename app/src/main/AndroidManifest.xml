@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentResultListActivity"></activity>
+        <activity android:name=".ProfessorViewResultActivity"></activity>
+        <activity android:name=".ProfessorViewQuizActivity" />
+        <activity android:name=".StudentResultListActivity" />
         <activity
             android:name=".StudentQuizSelectedActivity"
             android:screenOrientation="fullSensor" />
