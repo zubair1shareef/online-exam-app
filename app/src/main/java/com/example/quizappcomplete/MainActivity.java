@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                                         intent = new Intent (MainActivity.this, ProfessorDashboardActivity.class);
                                     else if(user.getRole ().equals ("Student"))
                                         intent = new Intent (MainActivity.this, StudentDashboardActivity.class);
+                                    else if(user.getRole ().equals ("Admin"))
+                                        intent = new Intent (MainActivity.this, Adminaddinst.class);
 
                                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     Gson gson = new Gson();
