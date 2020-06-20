@@ -1,4 +1,4 @@
-package com.example.quizappcomplete.Model;
+package com.example.quizappcomplete;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.quizappcomplete.Model.instituteadd;
 import com.example.quizappcomplete.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

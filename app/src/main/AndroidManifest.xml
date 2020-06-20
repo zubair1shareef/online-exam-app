@@ -17,7 +17,7 @@
             android:name=".StudentDashboardActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".Model.Adminaddinst"
+            android:name=".Adminaddinst"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".Results"
