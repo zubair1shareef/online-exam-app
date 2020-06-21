@@ -15,11 +15,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.quizappcomplete.DataAdapters.QuizListAdapter;
 import com.example.quizappcomplete.DataAdapters.QuizWithResultAdapter;
 import com.example.quizappcomplete.Model.QuizInfo;
 import com.example.quizappcomplete.Model.User;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +39,6 @@ public class StudentResultListActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private NavigationView mNavigationView;
 
-    FloatingActionButton fabNewQuiz;
 
     RecyclerView mRecyclerView;
     ArrayList<QuizInfo> mQuizInfoArrayList;
@@ -107,6 +105,11 @@ public class StudentResultListActivity extends AppCompatActivity {
                     case R.id.nav_student_result:
                         Toast.makeText(StudentResultListActivity.this, "Your Results",Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.nav_student_profile:{
+                        Intent intent = new Intent (StudentResultListActivity.this, Studentprofile.class);
+                        finish ();
+                        startActivity (intent);
+                    }break;
                     default:
                         return true;
                 }

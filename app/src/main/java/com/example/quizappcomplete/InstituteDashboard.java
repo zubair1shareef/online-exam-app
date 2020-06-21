@@ -32,9 +32,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class StudentDashboardActivity extends AppCompatActivity {
+public class InstituteDashboard extends AppCompatActivity {
 
-    private static final String TAG = "StudentDashboard" ;
+    private static final String TAG = "InstituteDashboard" ;
     private static final String MY_PREFS_NAME = "CurrentUser";
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
@@ -51,33 +51,25 @@ public class StudentDashboardActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mReference;
 
-
     TextView tvName, tvEmail;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_student_dashboard);
+        setContentView (R.layout.activity_institute_dashboard);
 
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = prefs.getString("user", "");
-        final User user = gson.fromJson(json, User.class);
-
-        getSupportActionBar ().setTitle ("All Quizzes");
+        getSupportActionBar ().setTitle ("Your Quizzes");
         getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
 
         mAuth = FirebaseAuth.getInstance ();
         mDatabase = FirebaseDatabase.getInstance ();
 
-        mDrawerLayout = findViewById(R.id.activity_student_dashboard);
+        mDrawerLayout = findViewById(R.id.activity_institute_dashboard);
         mActionBarDrawerToggle = new ActionBarDrawerToggle (this, mDrawerLayout,R.string.Open, R.string.Close);
 
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
-        mNavigationView = findViewById(R.id.navpane_student);
-
+        mNavigationView = findViewById(R.id.navpane_institute);
         tvEmail = mNavigationView.getHeaderView (0).findViewById (R.id.navEmail);
         tvName = mNavigationView.getHeaderView (0).findViewById (R.id.navName);
 
@@ -90,28 +82,18 @@ public class StudentDashboardActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 switch(id)
                 {
-                    case R.id.nav_student_quiz:
-                        Toast.makeText(StudentDashboardActivity.this, "Your Quiz",Toast.LENGTH_SHORT).show();
+                    case R.id.nav_prof_quiz:
+                        Toast.makeText(InstituteDashboard.this, "Your Quiz",Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.nav_student_signout:{
+                    case R.id.nav_prof_signout:{
                         mAuth.signOut ();
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                         editor.clear ();
                         editor.commit();
-                        Intent intent = new Intent (StudentDashboardActivity.this, WelcomeActivity.class);
+                        Intent intent = new Intent (InstituteDashboard.this, WelcomeActivity.class);
                         finish ();
                         startActivity (intent);
-                    }break;
-                    case R.id.nav_student_result:{
-                        Intent intent = new Intent (StudentDashboardActivity.this, StudentResultListActivity.class);
-                        finish ();
-                        startActivity (intent);
-                    }break;
-                    case R.id.nav_student_profile:{
-                        Intent intent = new Intent (StudentDashboardActivity.this, Studentprofile.class);
-                        finish ();
-                        startActivity (intent);
-                    }break;
+                    }
                     default:
                         return true;
                 }
@@ -119,14 +101,27 @@ public class StudentDashboardActivity extends AppCompatActivity {
             }
         });
 
+        fabNewQuiz = findViewById (R.id.fab_new_quiz_institute);
+        fabNewQuiz.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (InstituteDashboard.this, ProfessorNewQuizActivity.class);
+                startActivity (intent);
+            }
+        });
 
         mQuizIdList = new ArrayList<> ();
         mQuizInfoArrayList = new ArrayList<> ();
 
-        mRecyclerView = findViewById (R.id.student_quiz_list_recycler);
+        mRecyclerView = findViewById (R.id.institute_quiz_list_recycler);
         mRecyclerView.setLayoutManager (new LinearLayoutManager (this));
-        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, StudentQuizSelectedActivity.class);
+        mAdapter = new QuizListAdapter (mQuizInfoArrayList, mQuizIdList, this, ProfessorViewQuizActivity.class);
         mRecyclerView.setAdapter (mAdapter);
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = prefs.getString("user", "");
+        User user = gson.fromJson(json, User.class);
 
         mReference = mDatabase.getReference ("Quiz");
         Query query = mReference.orderByChild ("instituteCode").equalTo (user.getInstituteCode ());
@@ -143,12 +138,11 @@ public class StudentDashboardActivity extends AppCompatActivity {
                         Log.d (TAG, "onDataChange: "+data);
                         QuizInfo quiz = data.getValue (QuizInfo.class);
                         String id = data.getKey ();
-                        if(user.getSemester ().equals (quiz.getSemester ()) && user.getBranch ().equals (quiz.getBranch ())) {
-                            if (!mQuizIdList.contains (id)) {
-                                mQuizInfoArrayList.add (quiz);
-                                mQuizIdList.add (id);
-                                mAdapter.notifyDataSetChanged ();
-                            }
+
+                        if(!mQuizIdList.contains (id)) {
+                            mQuizInfoArrayList.add (quiz);
+                            mQuizIdList.add (id);
+                            mAdapter.notifyDataSetChanged ();
                         }
                     }
                 }
@@ -156,7 +150,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText (StudentDashboardActivity.this, "Database Error", Toast.LENGTH_SHORT).show ();
+                Toast.makeText (InstituteDashboard.this, "Database Error", Toast.LENGTH_SHORT).show ();
             }
         });
     }

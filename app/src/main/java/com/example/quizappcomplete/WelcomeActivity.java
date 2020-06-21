@@ -62,15 +62,11 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity (intent);
 
             }
-            else if(user.getRole ().equals ("Admin"))
-            {
-                Intent intent = new Intent (WelcomeActivity.this, Adminaddinst.class);
-                finish ();
-                startActivity (intent);
-            }
             else if(user.getRole ().equals ("Institute"))
             {
-
+                Intent intent = new Intent (WelcomeActivity.this, InstituteDashboard.class);
+                finish ();
+                startActivity (intent);
             }
         }
 

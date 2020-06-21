@@ -216,9 +216,13 @@ public class Register extends AppCompatActivity {
 
                                                     mDialog.dismiss ();
                                                     Toast.makeText (Register.this, "Data Stored", Toast.LENGTH_SHORT).show ();
-                                                    Intent i = new Intent (Register.this, ProfessorDashboardActivity.class);
+                                                    Intent intent = null;
+                                                    if(u.getRole ().equals ("Professor"))
+                                                        intent = new Intent (Register.this, ProfessorDashboardActivity.class);
+                                                    else if(u.getRole ().equals ("Student"))
+                                                        intent = new Intent (Register.this, StudentDashboardActivity.class);
                                                     finish ();
-                                                    startActivity (i);
+                                                    startActivity (intent);
                                                 }
                                                 else
                                                     Log.d ("SignUp","Display name not updated");

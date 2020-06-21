@@ -26,7 +26,7 @@ public class Studentprofile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studentprofile);
         name=(TextView) findViewById(R.id.name);
-       email =(TextView) findViewById(R.id.email);
+        email =(TextView) findViewById(R.id.email);
         role=(TextView) findViewById(R.id.role);
         sem=(TextView) findViewById(R.id.sem);
         branch=(TextView) findViewById(R.id.branch);
