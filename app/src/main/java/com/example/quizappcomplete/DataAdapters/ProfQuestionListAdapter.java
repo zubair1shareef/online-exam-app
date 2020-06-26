@@ -49,13 +49,13 @@ public class ProfQuestionListAdapter extends RecyclerView.Adapter<ProfQuestionLi
         holder.option4.setText (question.getOption4 ());
         String answer=question.getAnswer ();
 
-        if(answer.equals (question.getOption1 ()))
+        if(answer.equals ("1"))
             holder.option1.setBackgroundResource (R.drawable.option_correct);
-        else if(answer.equals (question.getOption2 ()))
+        else if(answer.equals ("2"))
             holder.option2.setBackgroundResource (R.drawable.option_correct);
-        else if(answer.equals (question.getOption3 ()))
+        else if(answer.equals ("3"))
             holder.option3.setBackgroundResource (R.drawable.option_correct);
-        else if(answer.equals (question.getOption4 ()))
+        else if(answer.equals ("4"))
             holder.option4.setBackgroundResource (R.drawable.option_correct);
 
         holder.delete.setOnClickListener (new View.OnClickListener () {

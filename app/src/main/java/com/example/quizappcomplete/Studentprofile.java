@@ -34,6 +34,9 @@ public class Studentprofile extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
+        getSupportActionBar ().setTitle ("Profile");
+        getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(String.valueOf(uid));
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -59,6 +62,12 @@ public class Studentprofile extends AppCompatActivity {
     public void edit(View v)
     {
         Toast.makeText(Studentprofile.this, "not enable",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
 }

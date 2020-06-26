@@ -114,6 +114,15 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+
+        tvLogin.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Register.this,MainActivity.class);
+                finish ();
+                startActivity (intent);
+            }
+        });
     }
 
     public void getRegistrationData()
